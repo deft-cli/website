@@ -1,0 +1,27 @@
+{{ define "main" }}
+
+<!-- Hero -->
+<section class="hero">
+    <p class="hero__eyebrow">
+        {{ .Site.Title }} {{ .Site.Params.version | default "v0.1" }}
+    </p>
+    <h1 class="hero__title">{{ .Site.Title }}</h1>
+    <p class="hero__sub">{{ .Site.Params.description }}.</p>
+    <div class="hero__actions">
+        <a href="/docs/getting-started/" class="btn btn--primary"
+            >Get started →</a
+        >
+        <a href="/downloads/" class="btn btn--ghost">Downloads</a>
+    </div>
+    <div class="install-pill">
+        <span>curl -fsSL https://deft-cli.com/install.sh | sh</span>
+        <button
+            class="install-pill__copy"
+            data-copy="curl -fsSL https://deft.dev/install.sh | sh"
+        >
+            copy
+        </button>
+    </div>
+</section>
+
+{{ .Content }} {{ end }}

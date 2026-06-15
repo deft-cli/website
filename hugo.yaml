@@ -1,0 +1,31 @@
+baseURL: "https://deft-cli.com/"
+languageCode: "en-us"
+title: "deft"
+theme: "deft"
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+  highlight:
+    style: "base16-snazzy"
+    noClasses: false
+
+menu:
+  main:
+    - name: "Docs"
+      url: "/docs/"
+      weight: 1
+    - name: "Downloads"
+      url: "/downloads/"
+      weight: 2
+    - name: "Packages"
+      url: "/packages/"
+      weight: 3
+    - name: "Community"
+      url: "/community/"
+      weight: 4
+
+params:
+  description: "Next-gen build system for C/C++"
+  tagline: "Build faster. Ship cleaner."

@@ -1,0 +1,21 @@
+{{ define "main" }}
+<div class="page">
+  <h1 class="page__title">{{ .Title }}</h1>
+  <p class="page__lead">{{ .Params.lead | default "Get deft for your platform." }}</p>
+
+  <div class="downloads-grid">
+    {{ range .Params.releases }}
+    <div class="download-card">
+      <p class="download-card__os">{{ .os }}</p>
+      <p class="download-card__name">{{ .name }}</p>
+      <p class="download-card__meta">{{ .version }} · {{ .arch }}</p>
+      <a href="{{ .url }}" class="btn btn--ghost">Download ↓</a>
+    </div>
+    {{ end }}
+  </div>
+
+  <div class="prose" style="margin-top: 3rem;">
+    {{ .Content }}
+  </div>
+</div>
+{{ end }}

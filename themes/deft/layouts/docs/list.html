@@ -1,0 +1,28 @@
+{{ define "main" }}
+<div class="docs-wrap">
+  <aside class="docs-sidebar">
+    <p class="docs-sidebar__title">Documentation</p>
+    <ul class="docs-nav">
+      {{ range .Site.Pages }}
+        {{ if and (eq .Section "docs") (not .IsSection) }}
+          <li>
+            <a class="docs-nav__link {{ if eq $.RelPermalink .RelPermalink }}active{{ end }}"
+               href="{{ .RelPermalink }}">{{ .LinkTitle | default .Title }}</a>
+          </li>
+        {{ end }}
+      {{ end }}
+    </ul>
+  </aside>
+  <article class="docs-content">
+    <div class="prose">
+      <h1>{{ .Title }}</h1>
+      {{ .Content }}
+      <ul>
+        {{ range .Pages }}
+        <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+        {{ end }}
+      </ul>
+    </div>
+  </article>
+</div>
+{{ end }}

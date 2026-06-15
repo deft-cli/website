@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta
+            name="description"
+            content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}"
+        />
+        <title>
+            {{ if .IsHome }}{{ .Site.Title }} — {{ .Site.Params.description }}{{
+            else }}{{ .Title }} · {{ .Site.Title }}{{ end }}
+        </title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="/css/main.css" />
+        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    </head>
+    <body>
+        {{ partial "nav.html" . }}
+
+        <main>{{ block "main" . }}{{ end }}</main>
+
+        {{ partial "footer.html" . }}
+
+        <script>
+            // Mobile nav toggle
+            const btn = document.querySelector(".nav__menu-btn");
+            const links = document.querySelector(".nav__links");
+            btn?.addEventListener("click", () =>
+                links?.classList.toggle("open"),
+            );
+
+            // Active nav link
+            document.querySelectorAll(".nav__links a").forEach((a) => {
+                if (
+                    window.location.pathname.startsWith(
+                        a.getAttribute("href"),
+                    ) &&
+                    a.getAttribute("href") !== "/"
+                ) {
+                    a.classList.add("active");
+                }
+            });
+
+            // Copy install command
+            document
+                .querySelector(".install-pill__copy")
+                ?.addEventListener("click", function () {
+                    navigator.clipboard.writeText(this.dataset.copy);
+                    const orig = this.textContent;
+                    this.textContent = "copied";
+                    setTimeout(() => (this.textContent = orig), 1500);
+                });
+        </script>
+    </body>
+</html>
