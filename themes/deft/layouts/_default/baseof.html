@@ -11,14 +11,21 @@
             {{ if .IsHome }}{{ .Site.Title }} — {{ .Site.Params.description }}{{
             else }}{{ .Title }} · {{ .Site.Title }}{{ end }}
         </title>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
-            rel="stylesheet"
-        />
         <link rel="stylesheet" href="/css/main.css" />
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+        <script>
+            // Apply saved/preferred theme before paint to avoid a flash
+            (function () {
+                var stored = localStorage.getItem("theme");
+                var theme =
+                    stored ||
+                    (window.matchMedia("(prefers-color-scheme: light)")
+                        .matches
+                        ? "light"
+                        : "dark");
+                document.documentElement.setAttribute("data-theme", theme);
+            })();
+        </script>
     </head>
     <body>
         {{ partial "nav.html" . }}
@@ -34,6 +41,23 @@
             btn?.addEventListener("click", () =>
                 links?.classList.toggle("open"),
             );
+
+            // Theme toggle
+            document
+                .querySelector("#theme-toggle")
+                ?.addEventListener("click", () => {
+                    const next =
+                        document.documentElement.getAttribute(
+                            "data-theme",
+                        ) === "light"
+                            ? "dark"
+                            : "light";
+                    document.documentElement.setAttribute(
+                        "data-theme",
+                        next,
+                    );
+                    localStorage.setItem("theme", next);
+                });
 
             // Active nav link
             document.querySelectorAll(".nav__links a").forEach((a) => {
