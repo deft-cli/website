@@ -38,11 +38,24 @@
             // Mobile nav toggle
             const btn = document.querySelector(".nav__menu-btn");
             const links = document.querySelector(".nav__links");
-            btn?.addEventListener("click", () =>
-                links?.classList.toggle("open"),
-            );
+            btn?.addEventListener("click", () => {
+                links?.classList.toggle("open");
+                btn.classList.toggle("is-active");
+            });
 
-            // Theme toggle
+            // Theme: live system detection + manual override
+            const systemTheme = window.matchMedia(
+                "(prefers-color-scheme: light)",
+            );
+            systemTheme.addEventListener("change", (e) => {
+                if (!localStorage.getItem("theme")) {
+                    document.documentElement.setAttribute(
+                        "data-theme",
+                        e.matches ? "light" : "dark",
+                    );
+                }
+            });
+
             document
                 .querySelector("#theme-toggle")
                 ?.addEventListener("click", () => {
@@ -58,6 +71,32 @@
                     );
                     localStorage.setItem("theme", next);
                 });
+
+            // Scroll-reveal animations
+            const reduceMotion = window.matchMedia(
+                "(prefers-reduced-motion: reduce)",
+            ).matches;
+            if (!reduceMotion && "IntersectionObserver" in window) {
+                const revealEls = document.querySelectorAll(
+                    ".hero__eyebrow, .hero__title, .hero__sub, .hero__actions, .install-pill, .feature-card, .download-card, .page__title, .page__lead, .section-label, .section-heading",
+                );
+                const revealObserver = new IntersectionObserver(
+                    (entries) => {
+                        entries.forEach((entry) => {
+                            if (entry.isIntersecting) {
+                                entry.target.classList.add("is-visible");
+                                revealObserver.unobserve(entry.target);
+                            }
+                        });
+                    },
+                    { threshold: 0.15 },
+                );
+                revealEls.forEach((el, i) => {
+                    el.classList.add("reveal");
+                    el.style.transitionDelay = `${(i % 6) * 60}ms`;
+                    revealObserver.observe(el);
+                });
+            }
 
             // Active nav link
             document.querySelectorAll(".nav__links a").forEach((a) => {
