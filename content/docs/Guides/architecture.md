@@ -2,6 +2,8 @@
 title: "Architecture"
 ---
 
+# Architecture
+
 This document describes how `deft` is put together internally: the design
 philosophy behind its decisions, and the concrete mechanics of its hot path,
 parallel compiler engine, language isolation, and archiver fallback chain.
@@ -39,6 +41,10 @@ a tool the host OS or toolchain already provides:
   crate ([compiler.rs](../src/compiler.rs) `archiver_candidates`).
 - Concurrency: bare `std::thread` + `std::sync`, never a thread-pool or
   async-executor crate ([engine.rs](../src/engine.rs) `compile_all`).
+- Global build cache hashing: `std::hash::Hasher` (`DefaultHasher`), never a
+  cryptographic-hash crate ([hash.rs](../src/hash.rs) `package_key`).
+- `--json` output: a closed, hand-written `Json` enum with its own
+  `render()`, never `serde_json` ([json.rs](../src/json.rs)).
 
 This keeps the deft binary itself small and fast to build, and keeps deft's
 own supply chain trivially auditable.
