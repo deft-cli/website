@@ -3,7 +3,7 @@
 <!-- Hero -->
 <section class="hero">
     <p class="hero__eyebrow">
-        {{ .Site.Title }} {{ .Site.Params.version | default "v0.3.0" }}
+        {{ .Site.Title }} {{ .Site.Params.version | default "v0.4.0" }}
     </p>
     <h1 class="hero__title">{{ .Site.Title }}</h1>
     <p class="hero__sub">{{ .Site.Params.description }}.</p>
@@ -75,6 +75,18 @@
     <div class="feature-card">
       <div class="feature-card__icon">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/>
+        </svg>
+      </div>
+      <div class="feature-card__title">Native sanitizer support</div>
+      <div class="feature-card__body">Declare <code>sanitizers = ["address", "undefined"]</code>
+  and <code>deft</code> wires up compile and link flags, forces <code>-g</code> for
+  readable stack traces, and rejects unsafe combinations like LTO with ASan.</div>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-card__icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <rect width="18" height="11" x="3" y="11" rx="2" ry="2"/>
           <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
         </svg>
@@ -108,6 +120,36 @@
       <div class="feature-card__body">Archiving tries <code>ar</code> (Unix) or
   <code>llvm-ar</code> then <code>lib.exe</code> (Windows), falling through only when a tool is
   genuinely missing.</div>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-card__icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M8 3 4 7l4 4"/>
+          <path d="M4 7h16"/>
+          <path d="m16 21 4-4-4-4"/>
+          <path d="M20 17H4"/>
+        </svg>
+      </div>
+      <div class="feature-card__title">CMake migration, best-effort</div>
+      <div class="feature-card__body"><code>deft migrate --from=cmake</code> is a
+  zero-dependency token scanner, not a full CMake interpreter. It resolves a
+  dominant language by source count and always tells you what it couldn't
+  translate instead of guessing.</div>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-card__icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 17v5"/>
+          <path d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z"/>
+        </svg>
+      </div>
+      <div class="feature-card__title">Toolchain pinning</div>
+      <div class="feature-card__body">Pin <code>toolchain = "clang-18.1"</code> in
+  <code>deft.toml</code> and every build validates the installed compiler
+  against it before compiling a single file. <code>deft doctor</code> checks
+  the same pin on demand.</div>
     </div>
   </div>
 </section>
